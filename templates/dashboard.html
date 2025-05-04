@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sales Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f8f9fa; }
+        h1, h2 { color: #333; }
+        .kpi { margin-bottom: 20px; }
+        .chart { margin-bottom: 50px; }
+        select { padding: 5px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <h1>📊 Sales Dashboard - {{ selected_year }}</h1>
+
+    <form method="get" action="/dashboard">
+        <label for="year">📅 Select Year:</label>
+        <select name="year" id="year" onchange="this.form.submit()">
+            {% for year in available_years %}
+                <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>{{ year }}</option>
+            {% endfor %}
+        </select>
+    </form>
+
+    <div class="kpi">
+        <p><strong>💰 Total Sales:</strong> ${{ total_sales }}</p>
+        <p><strong>📦 Total Orders:</strong> {{ total_orders }}</p>
+        <p><strong>💵 Estimated Profit:</strong> ${{ estimated_profit }}</p>
+    </div>
+
+    <div class="chart">{{ chart1 | safe }}</div>
+    <div class="chart">{{ chart2 | safe }}</div>
+    <div class="chart">{{ chart3 | safe }}</div>
+</body>
+</html>
